@@ -13,17 +13,17 @@
  *      пример:  src="main.js?bo=60&amp;cbd=4000"
  */
 //alert(navigator.userAgent);
-
+(function () {
 // Добавляем viewport в заголовке документа, если не прописан
 var viewport = document.querySelector("meta[name=viewport]");
 if (!viewport) {
     viewport = document.createElement('meta');
     viewport.setAttribute('name', 'viewport');
     document.head.appendChild(viewport);
-}
+};
 viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scalable=yes');
 
-(function () {
+
     if (!Date.now) {
         Date.now = function () {
             return new Date().getTime();
@@ -93,21 +93,6 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
                 'opacity:' + backgroundOpacity + ';' +
                 'z-index: 999999;' +
                 '}' +
-                '#' + bannerWrapperId + ' {' +
-                'display: block;' +
-                'position: fixed;' +
-                'left: 0px;' +
-                'top: 0px;' +
-                'z-index: 1000000;' +
-                '}' +
-               /* '#banner {' +
-                'position: relative;' +
-                'display: block;' +
-                'opacity: 1;' +
-                'left: 0px;' +
-                'top: 0px;' +
-                'z-index: 2;' +
-                '}' +*/
                 '#' + closeBtnDivId + ' {' +
                 'display: none;' +
                 'position: fixed;' +
@@ -123,17 +108,19 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
                 '}' +
                 '#' + iframeWrapperDivId + ' {' +
                 'display: block;' +
-                'position: absolute;' +
-                'margin-top: 0px;' +
-                'margin-left: 0px;' +
-                'z-index: 2;' +
+                'position: fixed;' +
+                    'margin: 0px;' +
+                    'padding: 0px;' +
+                'top: 0px;' +
+                'left: 0px;' +
+                'z-index: 10000000;' +
                 '}',
 // html код баннера:
             bannerHTML = '<div id="' + backgroundDivId + '"></div>' +
                 '<div id="' + closeBtnDivId + '"><img src="' + closeBtnImgSrc + '" alt="close"></div>' +
-                '<div id="' + bannerWrapperId + '">' +
-                '<div id="' + iframeWrapperDivId + '"></div>' +
-                '</div>';
+                /*'<div id="' + bannerWrapperId + '">' +*/
+                '<div id="' + iframeWrapperDivId + '"></div>';
+                /*'</div>';*/
 
 // функция создания элемента баннера
         var insertHtmlFragment = function (fragment) {
@@ -170,7 +157,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         appendStyle(bannerCssFile);
         appendScript(bannerIframeScriptSrc);
 
-        var frame = document.getElementById(bannerWrapperId),// обертка для баннера
+        var frame = document.querySelector('#' + iframeWrapperDivId),// обертка для баннера
             banner = document.querySelector('#' + iframeWrapperDivId).childNodes[0], // iframe нода баннера
             userAgent = navigator.userAgent,
             toCenter,    // функция для центрирования баннера
@@ -212,8 +199,13 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             } else {
                 scaleRate = screen.height / window.innerWidth;
             };
-            banner.setAttribute("width", (originalWidth / scaleRate).toFixed());
-            banner.setAttribute("height", (originalHeight / scaleRate).toFixed());
+            var newWidth = (originalWidth / scaleRate).toFixed(),
+                newHeight = (originalHeight / scaleRate).toFixed();
+
+            banner.setAttribute("width", newWidth);
+            banner.setAttribute("height", newHeight);
+            frame.style.width = newWidth + "px";
+            frame.style.height = newHeight + "px";
             frame.style.marginTop = (((window.innerHeight - banner.offsetHeight) / 2) + window.pageYOffset).toFixed() + "px";
             frame.style.marginLeft = (((window.innerWidth - banner.offsetWidth) / 2) + window.pageXOffset).toFixed() + "px";
             if (closeBtn) {
@@ -242,8 +234,12 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         var android4ToCenter = function () {
 
             scaleRate = isDIPSupported ? screen.width / window.innerWidth : screen.width / window.innerWidth / window.devicePixelRatio;
-            banner.setAttribute("width", (originalWidth / scaleRate).toFixed());
-            banner.setAttribute("height", (originalHeight / scaleRate).toFixed());
+            var newWidth = (originalWidth / scaleRate).toFixed(),
+                newHeight = (originalHeight / scaleRate).toFixed();
+            banner.setAttribute("width", newWidth);
+            banner.setAttribute("height", newHeight);
+            frame.style.width = newWidth + "px";
+            frame.style.height = newHeight + "px";
             frame.style.marginTop = (((window.innerHeight - banner.offsetHeight) / 2) + window.pageYOffset).toFixed() + "px";
             frame.style.marginLeft = (((window.innerWidth - banner.offsetWidth) / 2) + window.pageXOffset).toFixed() + "px";
 
@@ -286,7 +282,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
 
 
         if (userAgent.match(/puffin/gi)) {
-            frame.style.position = "absolute"
+            frame.style.position = "absolute";
             closeBtn.style.position = "absolute";
             backgroundDiv.style.position = "absolute";
             backgroundDiv.style.top = "0px";
