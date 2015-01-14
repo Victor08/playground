@@ -177,12 +177,12 @@ if (!document.cookie.match(cookieNameRegex)) {
 
 
 // обновление размеров элемента при увеличении для сохранения абсолютного размера
-    var resizeElement = function (el, elWidth, elHeight, scale) {
+   /* var resizeElement = function (el, elWidth, elHeight, scale) {
         if (el) {
             el.style.width = elWidth / scale;
             el.style.height = elHeight / scale;
         };
-    };
+    };*/
 // центрирование для ios
     var iphoneToCenter = function () {
         if (window.innerHeight > window.innerWidth) {
@@ -204,7 +204,7 @@ if (!document.cookie.match(cookieNameRegex)) {
     };
 
 // центрирование для десктопов (кроме сафари и кроме ie<9)
-    var desktopToCenter = function () {
+ /*   var desktopToCenter = function () {
 
         banner.setAttribute("width", (originalWidth / window.devicePixelRatio ));
         banner.setAttribute("height", (originalHeight / window.devicePixelRatio ));
@@ -215,9 +215,9 @@ if (!document.cookie.match(cookieNameRegex)) {
         };
         frame.style.marginTop = ((window.innerHeight - parseInt(banner.offsetHeight)) / 2 ) + "px";
         frame.style.marginLeft = ((window.innerWidth - parseInt(banner.offsetWidth)) / 2 ) + "px";
-    };
+    };*/
 
-    var operaMobiToCenter = function () {
+    var android4ToCenter = function () {
 
         scaleRate = isDIPSupported ? screen.width / window.innerWidth : screen.width / window.innerWidth / window.devicePixelRatio;
         banner.setAttribute("width", originalWidth / scaleRate);
@@ -246,15 +246,15 @@ if (!document.cookie.match(cookieNameRegex)) {
         frame.style.marginTop = (((window.innerHeight - banner.offsetHeight) / 2) + window.pageYOffset) + "px";
         frame.style.marginLeft = (((window.innerWidth - banner.offsetWidth) / 2) + window.pageXOffset) + "px";
 
-        backgroundDiv.style.width = scaleRate < 1 ? window.innerWidth / scaleRate + "px" : window.innerWidth + "px";
-        backgroundDiv.style.height = scaleRate < 1 ? window.innerHeight / scaleRate + "px" : window.innerHeight + "px";
+        backgroundDiv.style.width = window.innerWidth + "px";
+        backgroundDiv.style.height = window.innerHeight + "px";
         backgroundDiv.style.marginTop = window.pageYOffset + "px";
         backgroundDiv.style.marginLeft = window.pageXOffset + "px";
 
         if (closeBtn) {
             closeBtn.style.position = "absolute";
-            closeBtn.style.width = (closeBtnWidth / scaleRate) + "px";
-            closeBtn.style.height = (closeBtnHeight / scaleRate) + "px";
+            closeBtn.style.width = closeBtnWidth + "px";
+            closeBtn.style.height = closeBtnHeight + "px";
             closeBtn.style.marginTop = window.pageYOffset + "px";
             closeBtn.style.marginLeft = (window.innerWidth - closeBtn.offsetWidth + window.pageXOffset) + "px";
         };
@@ -264,62 +264,30 @@ if (!document.cookie.match(cookieNameRegex)) {
 
 
     if (userAgent.match(/puffin/gi)) {
-        frame.style.position = "absolute";
-
+        frame.style.position = "absolute"
         closeBtn.style.position = "absolute";
         backgroundDiv.style.position = "absolute";
         backgroundDiv.style.top = "0px";
         backgroundDiv.style.left = "0px";
         toCenter = puffinToCenter;
-    } else if (userAgent.match(/opera\smini/gi)) {
-        alert("mini");
-
-        frame.style.position = "absolute";
-        frame.style.width = (parseInt(document.body.clientWidth) * 0.9) + "px";
-        frame.style.height = (parseInt(frame.style.width) * 5 / 6) + "px";
-        frame.style.marginLeft = (parseInt(document.body.clientWidth) * 0.05) + "px";
-        frame.style.marginTop = "100px";
-
-        //closeBtn.style.position = "absolute";
-
-        (function opMinBnrSet() {
-            if (banner) {
-                alert("banner loaded");
-                banner.setAttribute("width", parseInt(document.body.clientWidth) * 0.9);
-                banner.setAttribute("height", parseInt(document.body.clientWidth) * 0.9 * 5 / 6);
-
-            } else {
-                banner = document.querySelector('#' + iframeWrapperDivId).childNodes[0];
-                setTimeout(opMinBnrSet, 500);
-            };
-        })();
-
-        backgroundDiv.style.position = "absolute";
-        backgroundDiv.style.top = "0px";
-        backgroundDiv.style.left = "0px";
-        backgroundDiv.style.width = document.body.clientWidth + "px";
-        backgroundDiv.style.height = document.body.clientHeight + "px";
-
-        toCenter = operaMobiToCenter;
-    }
-    else if (userAgent.match(/iPhone|iPad|iPod/gi)) {
+    } else if (userAgent.match(/iPhone|iPad|iPod/gi)) {
         frame.style.position = "absolute";
         //closeBtn.style.position = "absolute";
         var scaleRate;
         toCenter = iphoneToCenter;
 
     } else if (userAgent.match(/webOS|blackberry|iemobile/gi)) {
-        alert("blackberry");
-        toCenter = operaMobiToCenter;
+
+        toCenter = android4ToCenter;
     } else if (userAgent.match(/Android/gi)) {
         frame.style.position = "absolute";
         //closeBtn.style.position = "absolute";
         backgroundDiv.style.position = "absolute";
         backgroundDiv.style.top = "0px";
         backgroundDiv.style.left = "0px";
-        toCenter = operaMobiToCenter;
+        toCenter = android4ToCenter;
     } else {
-        toCenter = desktopToCenter;
+        toCenter = android4ToCenter;
     };
 
     var addListners = function () {
