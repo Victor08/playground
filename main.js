@@ -27,14 +27,14 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
     if (!Date.now) {
         Date.now = function () {
             return new Date().getTime();
-        }
-    }
+        };
+    };
 // конфиг куки
     var cookieName = "adv_cntr_bnr",
-        cookieNameRegex = /adv_cntr_bnr/,
+        cookieNameRegex = new RegExp (cookieName),
         cookieValidPath = "/";
 
-//if (!document.cookie.match(cookieNameRegex)) {
+if (!document.cookie.match(cookieNameRegex)) {
 
 // функция для получения get параметра, переданного при подключении данного скрипта
     var getURLParameter = function (parameterName) {
@@ -119,7 +119,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         temp.innerHTML = fragment;
         while (temp.firstChild) {
             frag.appendChild(temp.firstChild);
-        }
+        };
         return frag;
     };
 // функция добавления стилей
@@ -130,7 +130,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             s.styleSheet.cssText = css;
         } else {
             s.appendChild(document.createTextNode(css));
-        }
+        };
         document.getElementsByTagName('head')[0].appendChild(s);
     };
 
@@ -165,11 +165,11 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
                 isDIPSupported = (screen.width / window.innerWidth) > 1.05 ? false : true;
             } else {
                 isDIPSupported = (screen.height / window.innerWidth) > 1.05 ? false : true;
-            }
+            };
         } else {
             isDIPSupported = (screen.width / window.innerWidth) > 1.05 ? false : true;
-        }
-        ;
+        };
+
         /*   alert ("is DIP: " + isDIPSupported +
          "\nscreen width: " + screen.width +
          "\ninner widht: " + window.innerWidth);*/
@@ -181,7 +181,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         if (el) {
             el.style.width = elWidth / scale;
             el.style.height = elHeight / scale;
-        }
+        };
     };
 // центрирование для ios
     var iphoneToCenter = function () {
@@ -189,7 +189,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             scaleRate = screen.width / window.innerWidth; // при зуме яблочные браузеры не пересчитывают размер пикселя и выдают innerWidth/Height в изначальных пикселях, т.е. если сделал зум и оставил прежние размеры окна, innerWidth/Height станет меньше. Таким образом можно посчитать коэффициент увеличения картинки.
         } else {
             scaleRate = screen.height / window.innerWidth;
-        }
+        };
         banner.setAttribute("width", originalWidth / scaleRate);
         banner.setAttribute("height", originalHeight / scaleRate);
         frame.style.marginTop = (((window.innerHeight - banner.offsetHeight) / 2) + window.pageYOffset) + "px";
@@ -200,7 +200,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             closeBtn.style.height = (closeBtnHeight / scaleRate) + "px";
             closeBtn.style.marginTop = window.pageYOffset + "px";
             closeBtn.style.marginLeft = (window.innerWidth - closeBtn.offsetWidth + window.pageXOffset) + "px";
-        }
+        };
     };
 
 // центрирование для десктопов (кроме сафари и кроме ie<9)
@@ -212,7 +212,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             closeBtn.style.right = "0px";
             closeBtn.style.top = "0px";
             resizeElement(closeBtn, 50, 50, window.devicePixelRatio);
-        }
+        };
         frame.style.marginTop = ((window.innerHeight - parseInt(banner.offsetHeight)) / 2 ) + "px";
         frame.style.marginLeft = ((window.innerWidth - parseInt(banner.offsetWidth)) / 2 ) + "px";
     };
@@ -236,7 +236,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             closeBtn.style.height = (closeBtnHeight / scaleRate) + "px";
             closeBtn.style.marginTop = window.pageYOffset + "px";
             closeBtn.style.marginLeft = (window.innerWidth - closeBtn.offsetWidth + window.pageXOffset) + "px";
-        }
+        };
 
     };
 
@@ -257,7 +257,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             closeBtn.style.height = (closeBtnHeight / scaleRate) + "px";
             closeBtn.style.marginTop = window.pageYOffset + "px";
             closeBtn.style.marginLeft = (window.innerWidth - closeBtn.offsetWidth + window.pageXOffset) + "px";
-        }
+        };
 
     };
 
@@ -291,7 +291,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             } else {
                 banner = document.querySelector('#' + iframeWrapperDivId).childNodes[0];
                 setTimeout(opMinBnrSet, 500);
-            }
+            };
         })();
 
         backgroundDiv.style.position = "absolute";
@@ -320,7 +320,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         toCenter = operaMobiToCenter;
     } else {
         toCenter = desktopToCenter;
-    }
+    };
 
     var addListners = function () {
         // центрируем изображение при загрузке и вешаем слушателей на окно
@@ -335,18 +335,18 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
             document.cookie = cookieName + "=AdvMaker's awesome; path=" + cookieValidPath + "; expires=" + new Date(Date.now() + (1000 * 60 * 60 * cookieTimeOnPass)).toUTCString() + ";";
             clearBanner();
         }, 1000);
-    }
+    };
 
     var onCloseBtnClick = function () {
         document.cookie = cookieName + "=isSet; path=" + cookieValidPath + "; expires=" + new Date(Date.now() + (1000 * 60 * 60 * cookieTimeOnClose)).toUTCString() + ";";
         clearBanner();
-    }
+    };
 
     var clearBanner = function () {
         if (myTimer) {
             clearInterval(myTimer)
-        }
-        ;
+        };
+
         window.removeEventListener('resize', toCenter);
         window.removeEventListener('scroll', toCenter);
         window.removeEventListener('blur', onBannerClick);
@@ -358,7 +358,7 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
     var displayCloseBtn = function () {
         if (!closeBtn) {
             closeBtn = document.getElementById(closeBtnDivId);
-        }
+        };
         closeBtn.style.display = "block";
         closeBtn.addEventListener('click', onCloseBtnClick);
         toCenter();
@@ -373,13 +373,13 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
         } else {
             banner = document.querySelector('#' + iframeWrapperDivId).childNodes[0];
             setTimeout(selfInvoke, 500);
-        }
+        };
     };
 
     onBannerLoad();
 
 
-//}
+};
 
 
 })();
