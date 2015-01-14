@@ -41,6 +41,9 @@ if (!document.cookie.match(cookieNameRegex)) {
         return decodeURI((new RegExp(parameterName + "=" + "(.+?)(&|$)").exec(document.getElementById(thisScriptId).src) || [, ''])[1]);
     };
 
+
+
+
 // конфиг скрипта
     var closeBtnImgSrc = "http://b.am15.net/23/23412aed00.png", // картинка закрывающего крестика
         closeBtnDivId = "bnr_close_btn", // id блока с закрывающим крестиком
