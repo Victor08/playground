@@ -1,0 +1,47 @@
+#backgroundDivId {
+display: block;
+left: 0px;
+top: 0px;
+position: fixed;
+width: 100%;
+height: 100%;
+background-color: black;
+visibility: visible;
+opacity: 0.7;
+z-index: 999999;
+}
+#bannerWrapperId {
+display: block;
+position: fixed;
+left: 0px;
+top: 0px;
+z-index: 1000000;
+}
+#banner {
+position: relative;
+display: block;
+opacity: 1;
+left: 0px;
+top: 0px;
+z-index: 2;
+}
+#closeBtnDivId  {
+display: none;
+position: fixed;
+width: 40px;
+height: 40px;
+top: 0px;
+z-index: 1000001;
+cursor: pointer;
+}
+#closeBtnDivId img {
+height: 100%;
+width: 100%;
+}
+#iframeWrapperDivId  {
+display: block;
+position: absolute;
+margin-top: 0px;
+margin-left: 0px;
+z-index: 2;
+}

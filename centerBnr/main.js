@@ -107,13 +107,13 @@ viewport.setAttribute('content', 'width=device-width, initial-scale=1, user-scal
                 'width: 100%;' +
                 '}' +
                 '#' + iframeWrapperDivId + ' {' +
-                'display: block;' +
-                'position: fixed;' +
+                    'display: block;' +
+                    'position: fixed;' +
                     'margin: 0px;' +
                     'padding: 0px;' +
-                'top: 0px;' +
-                'left: 0px;' +
-                'z-index: 10000000;' +
+                    'top: 0px;' +
+                    'left: 0px;' +
+                    'z-index: 10000000;' +
                 '}',
 // html код баннера:
             bannerHTML = '<div id="' + backgroundDivId + '"></div>' +
