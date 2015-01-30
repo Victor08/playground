@@ -1,0 +1,15 @@
+{
+  "name": "playground",
+  "version": "0.0.1",
+  "authors": [
+    "Victor Logunov <v.logunov@advmaker.net>"
+  ],
+  "description": "kind a playground",
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.4",
+    "core-icons": "Polymer/core-icons#~0.5.4",
+    "paper-elements": "Polymer/paper-elements#~0.5.4",
+    "webcomponentsjs": "~0.5.4"
+  }
+}
